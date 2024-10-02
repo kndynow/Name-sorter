@@ -15,22 +15,18 @@ class Program
     */
     static void Main(string[] args)
     {
-        //Deklarerar och initierar ny lista med namn.
-        List<string> names = new List<string>
-        {
-            "Anna", "John", "Alice", "Björn",
-            "Rakel", "Örjan", "Zeke",
-            "Ahmed", "Hamse", "Linda",
-            "Fehrvats", "Karin",
+        //Lagrar namn i en HashSet som lagrar data på samma vis som Dictionary fast
+        //utan att vi behöver använda oss av en nyckel för att komma åt värden.
+        HashSet<string> names = new HashSet<string>{
+            "Anna", "John", "Alice", "Björn", "Rakel", "Örjan", "Zeke",
+            "Ahmed", "Hamse", "Linda", "Fehrvats", "Karin",
         };
 
+        //Main loop
         do
         {
             DisplayMenu(["Visa namn osorterat",
-            "Visa namn i bokstavsordning",
-            "Sök",
-            "Sortera namn i bokstavsordning",
-            "Avsluta"]);
+            "Visa namn i bokstavsordning", "Sök", "Avsluta"]);
 
             int userInput = GetUserInput();
 
@@ -45,24 +41,16 @@ class Program
                 //Visa namn i bokstavsordning
                 case 2:
                     Console.Clear();
-                    Console.WriteLine("Visa namn sorterat");
-                    Console.ReadLine();
+                    Console.WriteLine("Namn i bokstavsordning.");
+                    DisplayNames(SortNames(names));
                     break;
                 //Sök
                 case 3:
                     Console.Clear();
-                    Console.WriteLine("Sök");
                     SearchName(names);
                     break;
-                //Sortera
-                case 4:
-                    Console.Clear();
-                    SortNames(names);
-                    Console.WriteLine("Listan med namn har sorterats efter bokstavsordning.\nTryck Enter för att fortsätta...");
-                    Console.ReadLine();
-                    break;
                 //Avsluta
-                case 5:
+                case 4:
                     Environment.Exit(0);
                     break;
 
@@ -97,7 +85,7 @@ class Program
 
 
     //Presenterar listans innehåll osorterad
-    public static void DisplayNames(List<string> list)
+    public static void DisplayNames(HashSet<string> list)
     {
         //Kontrollera så att listan inte är tom
         if (list.Count != 0)
@@ -113,19 +101,36 @@ class Program
         Console.WriteLine("Listan verkar vara tom.");
     }
 
-    //Sorterar namn efter bokstavsordning efter det svenska alfabetet genom metoden StringComparer.Create som jämför
-    //listan efter CultureInfo som anges.
-    public static void SortNames(List<string> names)
+        public static void DisplayNames(List<string> list)
     {
-        names.Sort(StringComparer.Create(new CultureInfo("sv-SV"), false));
+        //Kontrollera så att listan inte är tom
+        if (list.Count != 0)
+        {
+            foreach (string name in list)
+            {
+                Console.WriteLine(name);
 
+            }
+            Console.ReadLine();
+            Console.WriteLine("Tryck Enter för att fortsätta...");
+        }
+        Console.WriteLine("Listan verkar vara tom.");
+    }
+
+    /*
+    SortNames tar emot ett HashSet, passerar in dess element i en ny instans av List som sen kan sortera
+    namn efter bokstavsordning efter det svenska alfabetet genom metoden StringComparer.Create som jämför
+    listan efter CultureInfo som anges. Returnerar en sorterad lista*/
+    public static List<string> SortNames(HashSet<string> names)
+    {
+        List<string>nameList = new List<string>(names);
+        nameList.Sort(StringComparer.Create(new CultureInfo("sv-SV"), false));
+        return nameList;
     }
 
     //Sök namn 
-    public static void SearchName(List<string> nameList)
+    public static void SearchName(HashSet<string> nameList)
     {
-        //Sorterar namn innan sökning
-        SortNames(nameList);
 
         Console.WriteLine("\nSkriv in namnet du söker: ");
 
