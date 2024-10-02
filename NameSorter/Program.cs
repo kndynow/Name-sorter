@@ -13,7 +13,15 @@ class Program
     */
     static void Main(string[] args)
     {
-        //TODO:Presentera meny
+        //Deklarerar och initierar ny lista med namn.
+        List<string> names = new List<string>
+        {
+            "Anna", "John", "Alice", "Björn",
+            "Rakel", "Örjan", "Zeke",
+            "Ahmed", "Hamse", "Linda",
+            "Fehrvats", "Karin",
+        };
+
         do
         {
             DisplayMenu(["Visa namn osorterat",
@@ -28,73 +36,67 @@ class Program
             {
                 //Visa namn osorterade
                 case 1:
-                Console.Clear();
-                Console.WriteLine("Visa namn");
-                Console.ReadLine();
+                    Console.Clear();
+                    Console.WriteLine("Visa namn");
+                    DisplayUnsortedList(names);
                     break;
                 //Visa namn i bokstavsordning
                 case 2:
-                Console.Clear();
-                Console.WriteLine("Visa namn sorterat");
-                Console.ReadLine();
+                    Console.Clear();
+                    Console.WriteLine("Visa namn sorterat");
+                    Console.ReadLine();
                     break;
                 //Sök
                 case 3:
-                Console.Clear();
-                Console.WriteLine("Sök");
-                Console.ReadLine();
+                    Console.Clear();
+                    Console.WriteLine("Sök");
+                    Console.ReadLine();
                     break;
                 //Sortera
                 case 4:
-                Console.Clear();
-                Console.WriteLine("Sortera");
-                Console.ReadLine();
+                    Console.Clear();
+                    Console.WriteLine("Sortera");
+                    Console.ReadLine();
                     break;
                 //Avsluta
                 case 5:
-                Environment.Exit(0);
+                    Environment.Exit(0);
                     break;
 
                 default:
-                Console.Clear();
+                    Console.Clear();
                     Console.WriteLine("Felaktig inmatning, försökt igen\nTryck Enter för att fortsätta...");
                     break;
             }
 
         } while (true);
-        // //TODO:Formatera kod så den blir mer läsbar:
-        // List<string> names = new List<string> { "Anna", "John", "Alice", "Björn", "Rakel", "Örjan", "Zeke", "Ahmed", "Hamse", "Linda", "Fehrvats", "Karin", };
-        // //TODO:Implementera metod som presenterar namn osorterade
-        // Console.WriteLine("Original list:");
-        // foreach (var name in names)
-        // {
-        //     Console.WriteLine(name);
-        // }
-        // //TODO:Försök lösa så att Sort() sorterar efter svenska alfabetet.
-        // names.Sort();
-        // Console.WriteLine("\nSorted list:");
-        // foreach (var name in names)
-        // {
-        //     Console.WriteLine(name);
-        // }
-        // //TODO:Implementera metod för sökning med felhantering så som felaktig inmatning eller om listan är tom.
-        // Console.WriteLine("\nEnter name to search:");
-        // //TODO:Här kommer jag implementera felhantering så att användaren inte kan mata in whitespace eller null
-        // string searchName = Console.ReadLine();
 
-        // if (names.Contains(searchName))
-        // {
-        //     Console.WriteLine($"{searchName} is in the list");
-        // }
-        // else
-        // {
-        //     Console.WriteLine($"{searchName} is not in the list.");
-        // }
-        // Console.ReadKey();
+        //TODO:Försök lösa så att Sort() sorterar efter svenska alfabetet.
+        names.Sort();
+        Console.WriteLine("\nSorted list:");
+        foreach (var name in names)
+        {
+            Console.WriteLine(name);
+        }
+
+        //TODO:Implementera metod för sökning med felhantering så som felaktig inmatning eller om listan är tom.
+        Console.WriteLine("\nEnter name to search:");
+        //TODO:Här kommer jag implementera felhantering så att användaren inte kan mata in whitespace eller null
+        string searchName = Console.ReadLine();
+
+        if (names.Contains(searchName))
+        {
+            Console.WriteLine($"{searchName} is in the list");
+        }
+        else
+        {
+            Console.WriteLine($"{searchName} is not in the list.");
+        }
+        Console.ReadKey();
 
 
     }
-
+    //Visar menyval
     public static void DisplayMenu(string[] menuItems)
     {
         Console.Clear();
@@ -111,5 +113,20 @@ class Program
             Console.WriteLine("Ogiltig inmatning. Försök igen");
         }
         return input;
+    }
+    //Presenterar listans innehåll osorterad
+    public static void DisplayUnsortedList(List<string> list)
+    {
+        if (list.Count != 0)
+        {
+            foreach (string name in list)
+            {
+                Console.WriteLine(name);
+                
+            }
+            Console.ReadLine();
+            Console.WriteLine("Tryck Enter för att fortsätta...");
+        }
+        Console.WriteLine("Listan verkar vara tom.");
     }
 }
