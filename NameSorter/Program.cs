@@ -1,4 +1,6 @@
-﻿namespace NameSorter;
+﻿using System.Globalization;
+
+namespace NameSorter;
 
 class Program
 {
@@ -38,7 +40,7 @@ class Program
                 case 1:
                     Console.Clear();
                     Console.WriteLine("Namn i lista, osorterade.\n");
-                    DisplayUnsortedList(names);
+                    DisplayNames(names);
                     break;
                 //Visa namn i bokstavsordning
                 case 2:
@@ -55,7 +57,8 @@ class Program
                 //Sortera
                 case 4:
                     Console.Clear();
-                    Console.WriteLine("Sortera");
+                    SortNames(names);
+                    Console.WriteLine("Listan med namn har sorterats efter bokstavsordning.\nTryck Enter för att fortsätta...");
                     Console.ReadLine();
                     break;
                 //Avsluta
@@ -117,7 +120,7 @@ class Program
 
 
     //Presenterar listans innehåll osorterad
-    public static void DisplayUnsortedList(List<string> list)
+    public static void DisplayNames(List<string> list)
     {
         //Kontrollera så att listan inte är tom
         if (list.Count != 0)
@@ -125,11 +128,18 @@ class Program
             foreach (string name in list)
             {
                 Console.WriteLine(name);
-                
+
             }
             Console.ReadLine();
             Console.WriteLine("Tryck Enter för att fortsätta...");
         }
         Console.WriteLine("Listan verkar vara tom.");
+    }
+    //Sorterar namn efter bokstavsordning efter det svenska alfabetet genom metoden StringComparer.Create som jämför
+    //listan efter CultureInfo som anges.
+    public static void SortNames(List<string> names)
+    {
+        names.Sort(StringComparer.Create(new CultureInfo("sv-SV"), false));
+
     }
 }
