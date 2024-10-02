@@ -37,7 +37,7 @@ class Program
                 //Visa namn osorterade
                 case 1:
                     Console.Clear();
-                    Console.WriteLine("Visa namn");
+                    Console.WriteLine("Namn i lista, osorterade.\n");
                     DisplayUnsortedList(names);
                     break;
                 //Visa namn i bokstavsordning
@@ -114,9 +114,12 @@ class Program
         }
         return input;
     }
+
+
     //Presenterar listans innehåll osorterad
     public static void DisplayUnsortedList(List<string> list)
     {
+        //Kontrollera så att listan inte är tom
         if (list.Count != 0)
         {
             foreach (string name in list)
