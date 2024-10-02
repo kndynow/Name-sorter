@@ -52,7 +52,7 @@ class Program
                 case 3:
                     Console.Clear();
                     Console.WriteLine("Sök");
-                    Console.ReadLine();
+                    SearchName(names);
                     break;
                 //Sortera
                 case 4:
@@ -73,32 +73,8 @@ class Program
             }
 
         } while (true);
-
-        //TODO:Försök lösa så att Sort() sorterar efter svenska alfabetet.
-        names.Sort();
-        Console.WriteLine("\nSorted list:");
-        foreach (var name in names)
-        {
-            Console.WriteLine(name);
-        }
-
-        //TODO:Implementera metod för sökning med felhantering så som felaktig inmatning eller om listan är tom.
-        Console.WriteLine("\nEnter name to search:");
-        //TODO:Här kommer jag implementera felhantering så att användaren inte kan mata in whitespace eller null
-        string searchName = Console.ReadLine();
-
-        if (names.Contains(searchName))
-        {
-            Console.WriteLine($"{searchName} is in the list");
-        }
-        else
-        {
-            Console.WriteLine($"{searchName} is not in the list.");
-        }
-        Console.ReadKey();
-
-
     }
+
     //Visar menyval
     public static void DisplayMenu(string[] menuItems)
     {
@@ -108,6 +84,7 @@ class Program
             Console.WriteLine($"{(i) + 1} - {menuItems[i]}");
         }
     }
+
     //Kontrollerar att användaren matar in ett numreriskt värde
     public static int GetUserInput()
     {
@@ -135,11 +112,37 @@ class Program
         }
         Console.WriteLine("Listan verkar vara tom.");
     }
+
     //Sorterar namn efter bokstavsordning efter det svenska alfabetet genom metoden StringComparer.Create som jämför
     //listan efter CultureInfo som anges.
     public static void SortNames(List<string> names)
     {
         names.Sort(StringComparer.Create(new CultureInfo("sv-SV"), false));
 
+    }
+
+    //Sök namn 
+    public static void SearchName(List<string> nameList)
+    {
+        //Sorterar namn innan sökning
+        SortNames(nameList);
+
+        Console.WriteLine("\nSkriv in namnet du söker: ");
+
+        string searchName = Console.ReadLine();
+        //Kontrollerar att inmating inte är tom eller är mellanslag
+        if (string.IsNullOrWhiteSpace(searchName))
+        {
+            Console.WriteLine("Sökfältet får inte vara tomt eller innehålla mellanslag.");
+        }
+        else if (nameList.Contains(searchName))
+        {
+            Console.WriteLine($"{searchName} finns i listan.");
+        }
+        else
+        {
+            Console.WriteLine($"{searchName} finns inte i listan.");
+        }
+        Console.ReadKey();
     }
 }
